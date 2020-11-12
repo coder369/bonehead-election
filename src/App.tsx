@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Link, Route, Switch } from 'react-router-dom';
-import { RegisterVoters } from './components/RegisterVoters';
+import { RegisterVoter } from './components/RegisterVoter';
 import { CreateElection } from './components/CreateElection';
 import { Home } from './components/Home';
 import { VoteContainer } from './containers/VoteContainer'
@@ -20,7 +20,10 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/register">Register Voters</Link>
+            <Link to="/register">Register New Voter</Link>
+          </li>
+          <li>
+            <Link to="/list_voters">Register Voters</Link>
           </li>
           <li>
             <Link to="/vote">Capture Votes</Link>
@@ -32,7 +35,8 @@ function App() {
         <main>
           <Switch>
             <Route path="/" exact component={Home}></Route>
-            <Route path="/register" component={RegisterVoters}></Route>
+            <Route path="/register" component={RegisterVoter}></Route>
+            <Route path="/list_voters" component={RegisterVoter}></Route>
             <Route path="/vote" component={VoteContainer}></Route>
             <Route path="/election" component={CreateElection}></Route>
           </Switch>
