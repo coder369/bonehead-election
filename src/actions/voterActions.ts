@@ -320,7 +320,6 @@ export const getVoter = (voterId: number) => {
     };
 }
 
-
 //todo multi delete
 
 export type VoterActions =
