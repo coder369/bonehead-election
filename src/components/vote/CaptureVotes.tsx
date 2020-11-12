@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { VoteContainer } from '../../containers/VoteContainer';
 import { Election } from '../../models/Election';
 import { Voter } from '../../models/Voter';
 import { ElectionList } from './ElectionList';
+import { VoterLogin } from './VoterLogin';
 
 export type CaptureVotesProps = {
     elections: Election[];
@@ -25,7 +27,7 @@ export function CaptureVotes({ elections, voters, selectedElectionId, selectedVo
         <>
             { selectedElectionId === -1
             ? (<ElectionList elections={elections} onSelectElection={onSelectElection} />)
-            : (<div>Selected Election Id: {selectedElectionId}</div>)
+            : (<VoterLogin voters={voters} onSelectVoter={onSelectVoter}/>)
             }   
         </>
     );
