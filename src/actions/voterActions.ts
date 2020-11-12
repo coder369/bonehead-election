@@ -19,6 +19,7 @@ export function isSetSelectedVoterAction(action: AnyAction): action is SetSelect
 export type CreateSetSelectedVoterAction = (voterId: number) => SetSelectedVoterAction;
 
 export const createSetSelectedVoterAction: CreateSetSelectedVoterAction = (voterId) => {
+    console.log(voterId);
     return {
         type: SET_SELECTED_VOTER_ACTION,
         payload: {
