@@ -1,10 +1,12 @@
 import React from "react";
 import {Voter} from "../../models/Voter";
 import {VotersSort} from "../../models/AppStore";
-import upArrow from "public/012-up-arrow.svg";
-import downArrow from "public/059-down-arrow-11.svg";
+import upArrow from "../../012-up-arrow.svg";
+import downArrow from "../../059-down-arrow-11.svg";
 
 import "./arrow-style.css"
+import {VoterEditRow} from "./VoterEditRow";
+import {VoterViewRow} from "./VoterViewRow";
 
 export type VoterTableProps = {
     voters: Voter[];
@@ -106,7 +108,10 @@ export function VoterTable(props: VoterTableProps) {
                 )}
                 </tbody>
             </table>
-            Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+            <br/>
+            <div>
+                Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+            </div>
         </>
 
 

@@ -4,7 +4,7 @@ import {Header} from "./Header";
 export const RegisterVoter = () => {
     return (
         <>
-            <Header headerText={"Voters & Register"}/>
+            <Header headerText={"Register New Voter"}/>
 
             <div>Register Voters</div>
         </>

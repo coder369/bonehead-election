@@ -15,15 +15,9 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
         city: props.voter.city,
         state: props.voter.state,
         zip: props.voter.zip,
-        birthdate: props.voter,
-        email: props.voter,
-        phone: props.voter,
-
-        make: props.voter.make,
-        model: props.voter.model,
-        year: props.voter.year,
-        color: props.voter.color,
-        price: props.voter.price,
+        birthdate: props.voter.birthdate,
+        email: props.voter.email,
+        phone: props.voter.phone,
     });
 
     const change = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,45 +41,81 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
             <td>
                 <input
                     type="text"
-                    id="make-input"
-                    name="make"
-                    value={voterForm.make}
+                    id="firstName-input"
+                    name="firstName"
+                    value={voterForm.firstName}
                     onChange={change}
                 />
             </td>
             <td>
                 <input
                     type="text"
-                    id="model-input"
-                    name="model"
-                    value={voterForm.model}
-                    onChange={change}
-                />
-            </td>
-            <td>
-                <input
-                    type="number"
-                    id="year-input"
-                    name="year"
-                    value={voterForm.year}
+                    id="lastName-input"
+                    name="lastName"
+                    value={voterForm.lastName}
                     onChange={change}
                 />
             </td>
             <td>
                 <input
                     type="text"
-                    id="color-input"
-                    name="color"
-                    value={voterForm.color}
+                    id="address-input"
+                    name="address"
+                    value={voterForm.address}
                     onChange={change}
                 />
             </td>
             <td>
                 <input
-                    type="number"
-                    id="price-input"
-                    name="price"
-                    value={voterForm.price}
+                    type="text"
+                    id="city-input"
+                    name="city"
+                    value={voterForm.city}
+                    onChange={change}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    id="state-input"
+                    name="state"
+                    value={voterForm.state}
+                    onChange={change}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    id="zip-input"
+                    name="zip"
+                    value={voterForm.zip}
+                    onChange={change}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    id="birthdate-input"
+                    name="birthdate"
+                    value={voterForm.birthdate}
+                    onChange={change}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    id="email-input"
+                    name="email"
+                    value={voterForm.email}
+                    onChange={change}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    id="phone-input"
+                    name="phone"
+                    value={voterForm.phone}
                     onChange={change}
                 />
             </td>

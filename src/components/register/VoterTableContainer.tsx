@@ -62,7 +62,7 @@ export function VoterTableContainer() {
 
     return (
         <>
-            <Header headerText={"All Voters"}/>
+            <Header headerText={"All Registered Voters"}/>
             <VoterTable {...stateProps} voters={sortedVoters} {...boundActionProps} />
         </>
 
