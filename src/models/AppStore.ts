@@ -4,6 +4,7 @@ import { Voter } from "./Voter";
 export type AppState = {
     elections: Election[],
     voters: Voter[]
-    selectedElectionId: number,
-    selectedVoterId: number,
+    selectedElection: Election,
+    selectedVoter: Voter,
+    errorMessage: string,
 };
