@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import { electionsReducer } from "./electionsReducer";
-import { votersReducer } from "./votersReducer";
+import {editVoterIdReducer, votersReducer, votersSortReducer} from "./votersReducer";
 
 export const AppReducer = combineReducers({
     elections: electionsReducer,
     voters: votersReducer,
+    editVoterId: editVoterIdReducer,
+    votersSort: votersSortReducer
 })
