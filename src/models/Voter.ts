@@ -1,4 +1,4 @@
-export type RegisteredVoter = {
+export type Voter = {
     id: number,
     firstName: string,
     lastName: string,
@@ -11,6 +11,6 @@ export type RegisteredVoter = {
     phone: string,
 }
 
-export type Citizen = Omit<RegisteredVoter, "id">;
+export type NewVoter = Omit<Voter, "id">;
 
-export type RegisteredVoterKeys = keyof RegisteredVoter;
+export type VoterKeys = keyof Voter;
