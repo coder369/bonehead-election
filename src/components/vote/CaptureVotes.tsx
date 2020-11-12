@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { VoteContainer } from '../../containers/VoteContainer';
 import { Election } from '../../models/Election';
 import { Voter } from '../../models/Voter';
 import { ElectionList } from './ElectionList';
@@ -27,7 +26,12 @@ export function CaptureVotes({ elections, voters, selectedElectionId, selectedVo
         <>
             { selectedElectionId === -1
             ? (<ElectionList elections={elections} onSelectElection={onSelectElection} />)
-            : (<VoterLogin voters={voters} onSelectVoter={onSelectVoter}/>)
+            : selectedVoterId === -1
+            ? (<VoterLogin voters={voters} onSelectVoter={onSelectVoter}/>)
+            : <div>
+                <div>Selected Election Id: {selectedElectionId}</div>
+                <div>Selected Voter Id: {selectedVoterId}</div>
+            </div>
             }   
         </>
     );
