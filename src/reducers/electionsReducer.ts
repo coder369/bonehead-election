@@ -1,5 +1,4 @@
 import { Reducer } from "react";
-import { combineReducers } from "redux";
 import { ElectionActions, REFRESH_ELECTIONS_DONE_ACTION } from "../actions/electionActions";
 import { Election } from "../models/Election";
 
@@ -12,7 +11,3 @@ export const electionsReducer: Reducer<Election[], ElectionActions> = (elections
             return elections;
     }
 }
-
-export const AppReducer = combineReducers({
-    elections: electionsReducer,
-})
