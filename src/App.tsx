@@ -3,9 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import { Link, Route, Switch } from 'react-router-dom';
 import { RegisterVoters } from './components/RegisterVoters';
-import { CaptureVotes } from './components/vote/CaptureVotes';
 import { CreateElection } from './components/CreateElection';
 import { Home } from './components/Home';
+import { VoteContainer } from './containers/VoteContainer'
 
 function App() {
   return (
@@ -32,9 +32,9 @@ function App() {
         <main>
           <Switch>
             <Route path="/" exact component={Home}></Route>
-            <Route path="/register" exact component={RegisterVoters}></Route>
-            <Route path="/vote" exact component={CaptureVotes}></Route>
-            <Route path="/election" exact component={CreateElection}></Route>
+            <Route path="/register" component={RegisterVoters}></Route>
+            <Route path="/vote" component={VoteContainer}></Route>
+            <Route path="/election" component={CreateElection}></Route>
           </Switch>
         </main>
         <footer>
