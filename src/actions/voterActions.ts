@@ -269,22 +269,6 @@ export const createSortVotersAction: CreateSortVotersAction = (
     };
 };
 
-
-//todo multi delete
-
-export type VoterActions =
-    RefreshVotersRequestAction |
-    RefreshVotersDoneAction |
-    AppendVoterRequestAction |
-    RemoveVoterRequestAction |
-    ReplaceVoterRequestAction |
-    EditVoterAction |
-    CancelVoterAction |
-    SortVotersAction | 
-    SetSelectedVoterAction |
-    GetVoterDoneAction
-
-
 export interface GetVoterRequestAction extends Action<typeof GET_VOTER_REQUEST_ACTION>{
     payload: {
         voterId: number,
@@ -335,5 +319,18 @@ export const getVoter = (voterId: number) => {
             .then((voters) => dispatch(createGetVoterDoneAction(voters)))
     };
 }
-    
 
+
+//todo multi delete
+
+export type VoterActions =
+    RefreshVotersRequestAction |
+    RefreshVotersDoneAction |
+    AppendVoterRequestAction |
+    RemoveVoterRequestAction |
+    ReplaceVoterRequestAction |
+    EditVoterAction |
+    CancelVoterAction |
+    SortVotersAction | 
+    SetSelectedVoterAction |
+    GetVoterDoneAction
