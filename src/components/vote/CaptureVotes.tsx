@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
 import { Election } from '../../models/Election';
 import { Voter } from '../../models/Voter';
+import { ElectionList } from './ElectionList';
 
 export type CaptureVotesProps = {
     elections: Election[];
-    voters: Voter[],
+    voters: Voter[];
+    selectedElectionId: number;
+    selectedVoterId: number;
     onRefreshElections: () => void;
     onRefreshVoters: () => void;
+    onSelectElection: (electionId: number) => void;
+    onSelectVoter: (voterId: number) => void;
 }
 
-export function CaptureVotes({ elections, voters, onRefreshElections, onRefreshVoters }: CaptureVotesProps) {
+export function CaptureVotes({ elections, voters, selectedElectionId, selectedVoterId, onRefreshElections, onRefreshVoters, onSelectElection, onSelectVoter }: CaptureVotesProps) {
 
     useEffect(() => {
         onRefreshElections();
@@ -17,9 +22,11 @@ export function CaptureVotes({ elections, voters, onRefreshElections, onRefreshV
     }, [onRefreshElections, onRefreshVoters]);
 
     return (
-        <div>
-            {JSON.stringify(elections)}
-            {JSON.stringify(voters)}
-        </div>
+        <>
+            { selectedElectionId === -1
+            ? (<ElectionList elections={elections} onSelectElection={onSelectElection} />)
+            : (<div>Selected Election Id: {selectedElectionId}</div>)
+            }   
+        </>
     );
 }

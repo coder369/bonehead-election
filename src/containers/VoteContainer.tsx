@@ -1,18 +1,13 @@
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { refreshElections } from "../actions/electionActions";
-import { refreshVoters } from "../actions/voterActions";
+import { createSetSelectedElectionAction, refreshElections } from "../actions/electionActions";
+import { createSetSelectedVoterAction, refreshVoters } from "../actions/voterActions";
 import { CaptureVotes } from "../components/vote/CaptureVotes";
 import { AppState } from "../models/AppStore";
 
 export function VoteContainer() {
-    const stateProps = useSelector((state: AppState) => {
-        return {
-            elections: state.elections,
-            voters: state.voters,
-        }
-    });
+    const stateProps = useSelector((state: AppState) => state);
 
     const dispatch = useDispatch();
 
@@ -22,6 +17,8 @@ export function VoteContainer() {
                 {
                     onRefreshElections: refreshElections,
                     onRefreshVoters: refreshVoters,
+                    onSelectElection: createSetSelectedElectionAction,
+                    onSelectVoter: createSetSelectedVoterAction
                 },
                 dispatch
             ),
