@@ -1,8 +1,31 @@
 import { Action, AnyAction, Dispatch } from "redux";
 import { Voter } from "../models/Voter";
 
+export const SET_SELECTED_VOTER_ACTION = 'SET_SELECTED_VOTER_ACTION'
+
 export const REFRESH_VOTERS_REQUEST_ACTION = 'REFRESH_VOTERS_REQUEST_ACTION';
 export const REFRESH_VOTERS_DONE_ACTION = 'REFRESH_VOTERS_DONE_ACTION';
+
+export interface SetSelectedVoterAction extends Action<typeof SET_SELECTED_VOTER_ACTION> {
+    payload: {
+        voterId: number,
+    }
+}
+
+export function isSetSelectedVoterAction(action: AnyAction): action is SetSelectedVoterAction {
+    return action.type === SET_SELECTED_VOTER_ACTION;
+}
+
+export type CreateSetSelectedVoterAction = (voterId: number) => SetSelectedVoterAction;
+
+export const createSetSelectedVoterAction: CreateSetSelectedVoterAction = (voterId) => {
+    return {
+        type: SET_SELECTED_VOTER_ACTION,
+        payload: {
+            voterId,
+        },
+    }
+}
 
 export type RefreshVotersRequestAction = Action<typeof REFRESH_VOTERS_REQUEST_ACTION>;
 
@@ -50,3 +73,4 @@ export const refreshVoters = () => {
 
 export type VoterActions = 
     RefreshVotersDoneAction
+    | SetSelectedVoterAction
