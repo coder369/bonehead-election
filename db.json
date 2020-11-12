@@ -1,4 +1,61 @@
 {
-  "voters": [],
-  "elections": []
+  "voters": [
+    {
+      "id": 1,
+      "firstName": "Ben",
+      "lastName": "Moore",
+      "address": "4740 Mount Saint Helens Drive",
+      "city": "San Diego",
+      "state": "CA",
+      "zip": "92117",
+      "birthdate": "1983-09-29",
+      "email": "moore.benjamin@gmail.com",
+      "phone": "858-900-7200"
+    },
+    {
+      "id": 2,
+      "firstName": "Yao",
+      "lastName": "Wang",
+      "address": "1234 S. 42nd St",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zip": "45678",
+      "birthdate": "1990-11-12",
+      "email": "wang.yao@gmail.com",
+      "phone": "555-555-5555"
+    },
+    {
+      "id": 3,
+      "firstName": "John",
+      "lastName": "Doe",
+      "address": "1234 Dead St.",
+      "city": "Hell",
+      "state": "MN",
+      "zip": "54321",
+      "birthdate": "1776-07-04",
+      "email": "doe.john@gmail.com",
+      "phone": "555-123-4567"
+    }
+  ],
+  "elections": [
+    {
+      "id": 1,
+      "name": "Animal Poll",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Do you like Dogs?",
+          "yesCount": 2,
+          "noCount": 0
+        },
+        {
+          "id": 2,
+          "question": "Do you like Cats?",
+          "yesCount": 1,
+          "noCount": 1
+        }
+      ],
+      "voterIds": [1, 2]
+    }
+  ]
 }
