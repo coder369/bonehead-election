@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Link, Route, Switch } from 'react-router-dom';
 import { RegisterVoters } from './components/RegisterVoters';
-import { CaptureVotes } from './components/CaptureVotes';
+import { CaptureVotes } from './components/vote/CaptureVotes';
 import { CreateElection } from './components/CreateElection';
 import { Home } from './components/Home';
 
