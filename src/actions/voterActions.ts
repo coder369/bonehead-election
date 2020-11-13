@@ -169,7 +169,7 @@ export const removeVoter = (voterId: number) => {
 export interface RemoveMultipleVotersRequestAction
     extends Action<typeof REMOVE_MULTI_VOTERS_REQUEST_ACTION> {
     payload: {
-        multiSelection: Record<number, boolean>;
+        multiSelection: number[];
     };
 }
 
@@ -180,17 +180,16 @@ export function isRemoveMultipleVotersRequestAction(
 }
 
 export type CreateRemoveMultipleVotersRequestAction = (
-    multiSelection: Record<number, boolean>
+    multiSelection: number[]
 ) => RemoveMultipleVotersRequestAction;
 
-export const removeMultipleVoters = (multiSelection: Record<number, boolean>) => {
+export const removeMultipleVoters = (multiSelection: number[]) => {
     return (dispatch: Dispatch) => {
         dispatch(createRemoveMultipleVotersRequestAction(multiSelection));
         return Promise.all(
-            Object.entries(multiSelection)
-                .filter(selection=>selection[1])
+            multiSelection
                 .map(selection=> {
-                    return fetch("http://localhost:3060/voters/" + encodeURIComponent(selection[0]), {method: "DELETE"});
+                    return fetch("http://localhost:3060/voters/" + encodeURIComponent(selection), {method: "DELETE"});
                 })
         ).then(() => {
             refreshVoters()(dispatch);
