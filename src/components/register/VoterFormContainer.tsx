@@ -3,7 +3,8 @@ import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
 
 import {appendVoter} from "../../actions/voterActions";
-import {VoterForm} from "./VoterForm"; 
+import {VoterForm} from "./VoterForm";
+import {Header} from "../Header";
 
 export function VoterFormContainer() {
     const dispatch = useDispatch();
@@ -19,5 +20,10 @@ export function VoterFormContainer() {
         [dispatch]
     );
 
-    return <VoterForm buttonText="Complete Registration" {...boundActionProps} />;
+    return (
+        <>
+            <Header headerText={"Register New Voter"}/>
+            <VoterForm buttonText="Complete Registration" {...boundActionProps} />
+        </>
+        );
 }
