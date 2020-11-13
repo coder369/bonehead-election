@@ -6,20 +6,18 @@ import { QuestionList } from './QuestionList';
 export type BallotProps = {
     election: Election,
     voter: Voter,
-    onAnswerToggle: (election: Election) => void; 
     onSubmitBallot: (election: Election) => void;
 }
 
 export function Ballot({
     election,
     voter,
-    onAnswerToggle,
     onSubmitBallot
 }: BallotProps) {
     return (
         <form>
             <h1>{election.name}</h1>
-            <QuestionList election={election} voter={voter} onSubmitBallot={() => {}}/> 
+            <QuestionList election={election} voter={voter} onSubmitBallot={onSubmitBallot} />
         </form>
     );
 }

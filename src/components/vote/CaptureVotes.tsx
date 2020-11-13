@@ -15,9 +15,10 @@ export type CaptureVotesProps = {
     onRefreshVoters: () => void;
     onSelectElection: (election: Election) => void;
     onSelectVoter: (voterId: number) => void;
+    onSubmitBallot: (election: Election) => void;
 }
 
-export function CaptureVotes({ elections, voters, selectedElection, selectedVoter, onRefreshElections, onRefreshVoters, onSelectElection, onSelectVoter, errorMessage }: CaptureVotesProps) {
+export function CaptureVotes({ elections, voters, selectedElection, selectedVoter, errorMessage, onRefreshElections, onRefreshVoters, onSelectElection, onSelectVoter, onSubmitBallot }: CaptureVotesProps) {
 
     useEffect(() => {
         onRefreshElections();
@@ -33,7 +34,7 @@ export function CaptureVotes({ elections, voters, selectedElection, selectedVote
                 ? <ElectionList elections={elections} onSelectElection={onSelectElection} />
                 : (selectedElection.id !== undefined && selectedVoter.id === undefined)
                     ? <VoterLogin voters={voters} selectedElection={selectedElection} onSelectVoter={onSelectVoter} errorMessage={errorMessage} />
-                    : <Ballot election={selectedElection} voter={selectedVoter} onSubmitBallot={() => { }} onAnswerToggle={() => { }} />}
+                    : <Ballot election={selectedElection} voter={selectedVoter} onSubmitBallot={onSubmitBallot} />}
         </>
     );
 }

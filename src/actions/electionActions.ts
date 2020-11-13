@@ -6,6 +6,44 @@ export const SET_SELECTED_ELECTION_ACTION = 'SET_SELECTED_ELECTION_ACTION'
 export const REFRESH_ELECTIONS_REQUEST_ACTION = 'REFRESH_ELECTIONS_REQUEST_ACTION';
 export const REFRESH_ELECTIONS_DONE_ACTION = 'REFRESH_ELECTIONS_DONE_ACTION';
 
+export const UPDATE_ELECTION_RESULTS_REQUEST_ACTION = 'UPDATE_ELECTION_RESULTS_REQUEST_ACTION';
+export const UPDATE_ELECTION_RESULTS_DONE_ACTION = 'UPDATE_ELECTION_RESULTS_DONE_ACTION';
+
+export interface UpdateElectionResultsRequestAction extends Action<typeof UPDATE_ELECTION_RESULTS_REQUEST_ACTION> {
+    payload: {
+        election: Election
+    }
+};
+
+export function isUpdateElectionResultsRequestAction(action: AnyAction): action is UpdateElectionResultsRequestAction {
+    return action.type === UPDATE_ELECTION_RESULTS_REQUEST_ACTION;
+}
+
+export type CreateUpdateElectionResultsRequestAction = (election: Election) => UpdateElectionResultsRequestAction;
+
+export const createUpdateElectionResultsRequestAction: CreateUpdateElectionResultsRequestAction = (election) => {
+    return {
+        type: UPDATE_ELECTION_RESULTS_REQUEST_ACTION,
+        payload: {
+            election,
+        }
+    }
+}
+
+export const updateElectionResults = (election: Election) => {
+    return (dispatch: Dispatch) => {
+        dispatch(createUpdateElectionResultsRequestAction(election));
+        return fetch('http://localhost:3060/elections/' + election.id, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...election })
+        })
+            .then(() => {
+                // not sure what I should do here...
+            });
+    };
+}
+
 export interface SetSelectedElectionAction extends Action<typeof SET_SELECTED_ELECTION_ACTION> {
     payload: {
         election: Election,
@@ -74,3 +112,4 @@ export const refreshElections = () => {
 export type ElectionActions = 
     RefreshElectionsDoneAction
     | SetSelectedElectionAction
+    | UpdateElectionResultsRequestAction
