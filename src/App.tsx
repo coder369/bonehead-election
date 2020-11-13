@@ -21,7 +21,7 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/register">Register New Voter</Link>
+            <Link to="/register">Register Voter</Link>
           </li>
           <li>
             <Link to="/list_voters">All Registered Voters</Link>
@@ -35,11 +35,11 @@ function App() {
         </ul>
         <main>
           <Switch>
-            <Route path="/" exact component={Home}></Route>
-            <Route path="/register" component={RegisterVoter}></Route>
-            <Route path="/list_voters" component={VoterTableContainer}></Route>
-            <Route path="/vote" component={VoteContainer}></Route>
-            <Route path="/election" component={CreateElection}></Route>
+            <Route path="/" exact component={Home}/>
+            <Route path="/register" component={RegisterVoter}/>
+            <Route path="/list_voters" component={VoterTableContainer}/>
+            <Route path="/vote" component={VoteContainer}/>
+            <Route path="/election" component={CreateElection}/>
           </Switch>
         </main>
         <footer>

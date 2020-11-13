@@ -1,6 +1,19 @@
 import React, {ChangeEvent, useState} from "react";
 
 import {NewVoter} from "../../models/Voter";
+import {useHistory} from "react-router-dom";
+
+export const INITIAL_VOTER_FORM = {
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+    birthdate: "",
+    email: "",
+    phone: "",
+}
 
 export type VoterFormProps = {
     buttonText: string;
@@ -8,16 +21,10 @@ export type VoterFormProps = {
 }
 
 export function VoterForm(props: VoterFormProps) {
+    const history = useHistory();
+
     const [voterForm, setVoterForm] = useState({
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        state: "",
-        zip: "",
-        birthdate: "",
-        email: "",
-        phone: "",
+        ...INITIAL_VOTER_FORM
     })
 
     const change = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,17 +40,7 @@ export function VoterForm(props: VoterFormProps) {
             ...voterForm,
         });
 
-        setVoterForm({
-            firstName: "",
-            lastName: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: "",
-            birthdate: "",
-            email: "",
-            phone: "",
-        });
+        history.push("/");
     };
 
     return (
@@ -130,7 +127,7 @@ export function VoterForm(props: VoterFormProps) {
                 />
             </div>
 
-            <button type="button" onClick={submitVoter}>
+            <button className="register-button" type="button" onClick={submitVoter}>
                 {props.buttonText}
             </button>
         </form>
