@@ -59,15 +59,6 @@
         1,
         2
       ]
-    },
-    {
-      "name": "test",
-      "questions": [
-        "do you like dogs?",
-        "do y ou like cats"
-      ],
-      "voterIds": [],
-      "id": 2
     }
   ]
 }
