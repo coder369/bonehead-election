@@ -45,17 +45,18 @@
         {
           "id": 1,
           "question": "Do you like Dogs?",
-          "yesCount": 2,
+          "yesCount": 0,
           "noCount": 0
         },
         {
           "id": 2,
           "question": "Do you like Cats?",
-          "yesCount": 1,
-          "noCount": 1
+          "yesCount": 0,
+          "noCount": 0
         }
       ],
-      "voterIds": [1, 2]
+      "voterIds": [
+      ]
     }
   ]
 }

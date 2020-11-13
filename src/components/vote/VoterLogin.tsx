@@ -1,14 +1,16 @@
 import React, { ChangeEvent } from 'react';
 import { HTMLFormControls, useForm } from '../../hooks/useForm';
+import { Election } from '../../models/Election';
 import { Voter } from '../../models/Voter';
 
 export type VoterLoginProps = {
     voters: Voter[];
+    selectedElection: Election;
     onSelectVoter: (voterId: number) => void;
     errorMessage: string;
 };
 
-export function VoterLogin({ voters, onSelectVoter, errorMessage }: VoterLoginProps) {
+export function VoterLogin({ voters, selectedElection, onSelectVoter, errorMessage }: VoterLoginProps) {
     const [voteForm, change] = useForm({
         voterId: -1
     });
@@ -32,8 +34,13 @@ export function VoterLogin({ voters, onSelectVoter, errorMessage }: VoterLoginPr
                 <label htmlFor="voterId-input">Voter Email:</label>
                 <input type="number" name="voterId" id="voterId-input" value={voteForm.voterId} onChange={onChange} />
             </div>
-            <button type="button" disabled={voteForm.voterId === -1} onClick={() => onSelectVoter(voteForm.voterId)}>
-                Submit
+            <button type="button"
+                disabled={
+                    !voters.map((v) => v.id).includes(voteForm.voterId)
+                    || selectedElection.voterIds.includes(voteForm.voterId)
+                }
+                onClick={() => onSelectVoter(voteForm.voterId)}>
+                Vote
             </button>
         </form>
     );

@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
-import { electionsReducer, selectedElectionReducer } from "./electionsReducer";
+import { electionsReducer, questionsReducer, selectedElectionReducer } from "./electionsReducer";
 import {votersReducer, editVoterIdReducer, votersSortReducer, getVoterReducer, errorMessageReducer } from "./votersReducer";
-
 export const AppReducer = combineReducers({
     elections: electionsReducer,
     voters: votersReducer,
@@ -10,4 +9,6 @@ export const AppReducer = combineReducers({
     selectedElection: selectedElectionReducer,
     selectedVoter: getVoterReducer,
     errorMessage: errorMessageReducer,
+    questions: questionsReducer,
+
 })
