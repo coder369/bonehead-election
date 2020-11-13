@@ -1,5 +1,23 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
 
-export function VoteFormContainer() {
-    return <></>;
+import {appendVoter} from "../../actions/voterActions";
+import {VoterForm} from "./VoterForm"; 
+
+export function VoterFormContainer() {
+    const dispatch = useDispatch();
+
+    const boundActionProps = useMemo(
+        () =>
+            bindActionCreators(
+                {
+                    onSubmitVoter: appendVoter,
+                },
+                dispatch
+            ),
+        [dispatch]
+    );
+
+    return <VoterForm buttonText="Complete Registration" {...boundActionProps} />;
 }
