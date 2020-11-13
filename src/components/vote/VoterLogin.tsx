@@ -34,7 +34,12 @@ export function VoterLogin({ voters, selectedElection, onSelectVoter, errorMessa
                 <label htmlFor="voterId-input">Voter Email:</label>
                 <input type="number" name="voterId" id="voterId-input" value={voteForm.voterId} onChange={onChange} />
             </div>
-            <button type="button" disabled={!voters.map((v) => v.id).includes(voteForm.voterId) || selectedElection.voterIds.includes(voteForm.voterId)} onClick={() => onSelectVoter(voteForm.voterId)}>
+            <button type="button"
+                disabled={
+                    !voters.map((v) => v.id).includes(voteForm.voterId)
+                    || selectedElection.voterIds.includes(voteForm.voterId)
+                }
+                onClick={() => onSelectVoter(voteForm.voterId)}>
                 Vote
             </button>
         </form>
