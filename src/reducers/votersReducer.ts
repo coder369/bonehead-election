@@ -7,9 +7,10 @@ import {
     isEditVoterAction,
     isCancelVoterAction,
     isSortVotersAction,
+    SET_SELECTED_VOTER_ACTION,
 } from "../actions/voterActions";
 import { Voter } from "../models/Voter";
-import {VotersSort} from "../models/AppStore";
+import { VotersSort } from "../models/AppStore";
 
 export const votersReducer: Reducer<Voter[], VoterActions> = (voters = [], action) => {
     switch (action.type) {
@@ -21,21 +22,23 @@ export const votersReducer: Reducer<Voter[], VoterActions> = (voters = [], actio
     }
 }
 
-export const getVoterReducer: Reducer<Voter, VoterActions> = (voter = {} as Voter, action) => {
+export const voterReducer: Reducer<Voter, VoterActions> = (voter = {} as Voter, action) => {
     switch (action.type) {
         case GET_VOTER_DONE_ACTION:
             return action.payload.voter
+
+        case SET_SELECTED_VOTER_ACTION:
+            return action.payload.voter;
 
         default:
             return voter;
     }
 }
 
-
 export const errorMessageReducer: Reducer<string, VoterActions> = (errorMessage, action) => {
     switch (action.type) {
         case GET_VOTER_DONE_ACTION:
-            if(action.payload.voter === null || action.payload.voter === undefined){
+            if (action.payload.voter === null || action.payload.voter === undefined) {
                 return 'Invalid voter id.';
             }
 
