@@ -1,5 +1,6 @@
 import { Election } from "./Election";
 import { Voter } from "./Voter";
+import { Question } from "./Question"
 
 export type SortDir = 'asc' | 'desc';
 
@@ -15,4 +16,9 @@ export type AppState = {
     selectedVoterId: number,
     editVoterId: number,
     votersSort: VotersSort,
+    questions: Question[],
 };
+
+export type ElectionState = {
+
+}
