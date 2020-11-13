@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useBallotForm } from '../../hooks/useBallotForm';
 import { Election } from '../../models/Election';
 import { Voter } from '../../models/Voter';
@@ -11,7 +12,8 @@ export type QuestionListProps = {
 
 export function QuestionList({ election, voter, onSubmitBallot }: QuestionListProps) {
     const [ballot, change] = useBallotForm([])
-
+    const history = useHistory();
+    
     const submitBallot = () => {
         const questions = [...election.questions];
         const voterIds = [...election.voterIds];
@@ -34,6 +36,7 @@ export function QuestionList({ election, voter, onSubmitBallot }: QuestionListPr
         };
 
         onSubmitBallot(newElection);
+        history.push("/");
     }
 
     return (
