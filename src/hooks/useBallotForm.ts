@@ -7,7 +7,7 @@ export const useBallotForm: UseBallotForm = (initialForm) => {
 
     const change = (e: ChangeEvent<HTMLInputElement>) => {
         const newBits = [...bits]
-        newBits[+e.target.id-1] = e.target.checked
+        newBits[+e.target.id] = e.target.checked
 
         setBits(newBits);
     };
