@@ -12,13 +12,15 @@ export type VotersSort = {
 export type AppState = {
     elections: Election[],
     voters: Voter[],
-    selectedElectionId: number,
-    selectedVoterId: number,
+    selectedElection: Election,
+    selectedVoter: Voter,
     editVoterId: number,
     votersSort: VotersSort,
     questions: Question[],
+    errorMessage: string,
 };
 
 export type ElectionState = {
 
 }
+

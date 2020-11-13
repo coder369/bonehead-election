@@ -12,7 +12,7 @@ export const SUBMIT_ELECTION_REQUEST_ACTION = 'SUBMIT_ELECTION_REQUEST_ACTION';
 
 export interface SetSelectedElectionAction extends Action<typeof SET_SELECTED_ELECTION_ACTION> {
     payload: {
-        electionId: number,
+        election: Election,
     }
 }
 
@@ -20,13 +20,13 @@ export function isSetSelectedElectionAction(action: AnyAction): action is SetSel
     return action.type === SET_SELECTED_ELECTION_ACTION;
 }
 
-export type CreateSetSelectedElectionAction = (electionId: number) => SetSelectedElectionAction;
+export type CreateSetSelectedElectionAction = (election: Election) => SetSelectedElectionAction;
 
-export const createSetSelectedElectionAction: CreateSetSelectedElectionAction = (electionId) => {
+export const createSetSelectedElectionAction: CreateSetSelectedElectionAction = (election) => {
     return {
         type: SET_SELECTED_ELECTION_ACTION,
         payload: {
-            electionId,
+            election,
         },
     }
 }
