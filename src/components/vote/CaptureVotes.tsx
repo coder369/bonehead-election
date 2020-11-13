@@ -48,10 +48,7 @@ export function CaptureVotes({ elections, voters, selectedElection, selectedVote
     }
 
     const selectVoter = (voterId: number) => {
-        let voter = voters.filter((voter) => voter.id === voterId)[0];
-
-        console.log(voter);
-        onSelectVoter(voter);
+        onSelectVoter(voters.filter((voter) => voter.id === voterId)[0]);
     }
 
     return (
