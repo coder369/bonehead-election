@@ -191,3 +191,4 @@ export type ElectionActions =
     | SetSelectedElectionAction
     | AddQuestionAction
     | UpdateElectionResultsRequestAction
+    | UpdateElectionResultsRequestAction
