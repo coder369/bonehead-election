@@ -7,32 +7,29 @@ import { VoterLogin } from './VoterLogin';
 export type CaptureVotesProps = {
     elections: Election[];
     voters: Voter[];
-    selectedElectionId: number;
-    selectedVoterId: number;
+    selectedElection: Election;
+    selectedVoter: Voter;
+    errorMessage: string;
     onRefreshElections: () => void;
     onRefreshVoters: () => void;
-    onSelectElection: (electionId: number) => void;
+    onSelectElection: (election: Election) => void;
     onSelectVoter: (voterId: number) => void;
 }
 
-export function CaptureVotes({ elections, voters, selectedElectionId, selectedVoterId, onRefreshElections, onRefreshVoters, onSelectElection, onSelectVoter }: CaptureVotesProps) {
+export function CaptureVotes({ elections, voters, selectedElection, selectedVoter, onRefreshElections, onRefreshVoters, onSelectElection, onSelectVoter, errorMessage }: CaptureVotesProps) {
 
     useEffect(() => {
         onRefreshElections();
         onRefreshVoters();
     }, [onRefreshElections, onRefreshVoters]);
 
+    console.log("Voter: " + JSON.stringify(selectedVoter));
+    console.log("Election: " + JSON.stringify(selectedElection));
+
     return (
         <>
-            { selectedElectionId === -1
-            ? (<ElectionList elections={elections} onSelectElection={onSelectElection} />)
-            : selectedVoterId === -1
-            ? (<VoterLogin voters={voters} onSelectVoter={onSelectVoter}/>)
-            : <div>
-                <div>Selected Election Id: {selectedElectionId}</div>
-                <div>Selected Voter Id: {selectedVoterId}</div>
-            </div>
-            }   
+            <ElectionList elections={elections} onSelectElection={onSelectElection} />
+            <VoterLogin voters={voters} onSelectVoter={onSelectVoter} errorMessage={errorMessage}/>
         </>
     );
 }
