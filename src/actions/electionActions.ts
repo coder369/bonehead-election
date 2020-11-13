@@ -1,5 +1,6 @@
 import { Action, AnyAction, Dispatch } from "redux";
 import { Election, NewElection } from "../models/Election";
+import { Question } from "../models/Question";
 
 export const SET_SELECTED_ELECTION_ACTION = 'SET_SELECTED_ELECTION_ACTION'
 
@@ -7,6 +8,7 @@ export const REFRESH_ELECTIONS_REQUEST_ACTION = 'REFRESH_ELECTIONS_REQUEST_ACTIO
 export const REFRESH_ELECTIONS_DONE_ACTION = 'REFRESH_ELECTIONS_DONE_ACTION';
 
 export const ADD_QUESTION_ACTION = 'ADD_QUESTION_ACTION';
+export const REFRESH_QUESTIONS_REQUEST_ACTION = 'REFRESH_QUESTIONS_REQUEST_ACTION';
 
 export const SUBMIT_ELECTION_REQUEST_ACTION = 'SUBMIT_ELECTION_REQUEST_ACTION';
 
@@ -134,6 +136,20 @@ export const createAddQuestionAction: CreateAddQuestionAction = (question) => {
     }
 }
 
+export type RefreshQuestionsRequestAction = Action<typeof REFRESH_QUESTIONS_REQUEST_ACTION>;
+
+export function isRefreshQuestionsRequestAction(action: AnyAction): action is RefreshQuestionsRequestAction {
+    return action.type === REFRESH_QUESTIONS_REQUEST_ACTION;
+}
+
+export type CreateRefreshQuestionsRequestAction = () => RefreshQuestionsRequestAction;
+
+export const createRefreshQuestionsRequestAction: CreateRefreshQuestionsRequestAction = () => {
+    return {
+        type: REFRESH_QUESTIONS_REQUEST_ACTION,
+    }
+}
+
 export interface SubmitElectionRequestAction
   extends Action<typeof SUBMIT_ELECTION_REQUEST_ACTION> {
   payload: {
@@ -170,7 +186,9 @@ export const submitElection = (election: NewElection) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(toElectionObj(election)),
       }).then(() => {
-        refreshElections()(dispatch);
+        refreshElections()(dispatch).then(() => {
+            dispatch(createRefreshQuestionsRequestAction())
+        });
       });
     };
   };
@@ -190,5 +208,6 @@ export type ElectionActions =
     RefreshElectionsDoneAction
     | SetSelectedElectionAction
     | AddQuestionAction
+    | RefreshQuestionsRequestAction
     | UpdateElectionResultsRequestAction
     | UpdateElectionResultsRequestAction
