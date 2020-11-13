@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Election } from '../../models/Election';
 import { Voter } from '../../models/Voter';
+import { Ballot } from './Ballot';
 import { ElectionList } from './ElectionList';
 import { VoterLogin } from './VoterLogin';
 
@@ -28,8 +29,11 @@ export function CaptureVotes({ elections, voters, selectedElection, selectedVote
 
     return (
         <>
-            <ElectionList elections={elections} onSelectElection={onSelectElection} />
-            <VoterLogin voters={voters} onSelectVoter={onSelectVoter} errorMessage={errorMessage}/>
+            {(selectedElection.id === undefined)
+                ? <ElectionList elections={elections} onSelectElection={onSelectElection} />
+                : (selectedElection.id !== undefined && selectedVoter.id === undefined)
+                    ? <VoterLogin voters={voters} selectedElection={selectedElection} onSelectVoter={onSelectVoter} errorMessage={errorMessage} />
+                    : <Ballot election={selectedElection} voter={selectedVoter} onSubmitBallot={() => { }} onAnswerToggle={() => { }} />}
         </>
     );
 }
