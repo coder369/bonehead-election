@@ -18,7 +18,7 @@ export const GET_VOTER_DONE_ACTION = 'GET_VOTER_DONE_ACTION';
 
 export interface SetSelectedVoterAction extends Action<typeof SET_SELECTED_VOTER_ACTION> {
     payload: {
-        voterId: number,
+        voter: Voter,
     }
 }
 
@@ -26,13 +26,13 @@ export function isSetSelectedVoterAction(action: AnyAction): action is SetSelect
     return action.type === SET_SELECTED_VOTER_ACTION;
 }
 
-export type CreateSetSelectedVoterAction = (voterId: number) => SetSelectedVoterAction;
+export type CreateSetSelectedVoterAction = (voter: Voter) => SetSelectedVoterAction;
 
-export const createSetSelectedVoterAction: CreateSetSelectedVoterAction = (voterId) => {
+export const createSetSelectedVoterAction: CreateSetSelectedVoterAction = (voter) => {
     return {
         type: SET_SELECTED_VOTER_ACTION,
         payload: {
-            voterId,
+            voter,
         },
     }
 }
@@ -376,4 +376,5 @@ export type VoterActions =
     CancelVoterAction |
     SortVotersAction |
     SetSelectedVoterAction |
-    GetVoterDoneAction
+    GetVoterDoneAction |
+    SetSelectedVoterAction
