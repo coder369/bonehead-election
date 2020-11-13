@@ -36,7 +36,7 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
     };
 
     return (
-        <tr>
+        <>
             <td>{props.voter.id}</td>
             <td>
                 <input
@@ -127,6 +127,6 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
                     Cancel
                 </button>
             </td>
-        </tr>
+        </>
     );
 };

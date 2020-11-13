@@ -2,11 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Link, Route, Switch } from 'react-router-dom';
-import { RegisterVoter } from './components/RegisterVoter';
 import { CreateElection } from './components/election/CreateElection';
 import { Home } from './components/Home';
 import { VoteContainer } from './containers/VoteContainer'
 import {VoterTableContainer} from "./components/register/VoterTableContainer";
+import {VoterFormContainer} from "./components/register/VoterFormContainer";
 
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
         <main>
           <Switch>
             <Route path="/" exact component={Home}/>
-            <Route path="/register" component={RegisterVoter}/>
+            <Route path="/register" component={VoterFormContainer}/>
             <Route path="/list_voters" component={VoterTableContainer}/>
             <Route path="/vote" component={VoteContainer}/>
             <Route path="/election" component={CreateElection}/>

@@ -8,6 +8,7 @@ export const REFRESH_VOTERS_DONE_ACTION = 'REFRESH_VOTERS_DONE_ACTION';
 export const APPEND_VOTER_REQUEST_ACTION = 'APPEND_VOTER_REQUEST_ACTION'
 export const REPLACE_VOTER_REQUEST_ACTION = 'REPLACE_VOTER_REQUEST_ACTION'
 export const REMOVE_VOTER_REQUEST_ACTION = 'REMOVE_VOTER_REQUEST_ACTION'
+export const REMOVE_MULTI_VOTERS_REQUEST_ACTION = 'REMOVE_MULTI_VOTERS_REQUEST_ACTION'
 export const EDIT_VOTER_ACTION = "EDIT_VOTER";
 export const CANCEL_VOTER_ACTION = "CANCEL_VOTER";
 export const SORT_VOTERS_ACTION = "SORT_VOTERS";
@@ -161,6 +162,50 @@ export const removeVoter = (voterId: number) => {
         }).then(() => {
             refreshVoters()(dispatch);
         });
+    };
+};
+
+// multi-remove voters
+export interface RemoveMultipleVotersRequestAction
+    extends Action<typeof REMOVE_MULTI_VOTERS_REQUEST_ACTION> {
+    payload: {
+        multiSelection: Record<number, boolean>;
+    };
+}
+
+export function isRemoveMultipleVotersRequestAction(
+    action: AnyAction
+): action is RemoveMultipleVotersRequestAction {
+    return action.type === REMOVE_MULTI_VOTERS_REQUEST_ACTION;
+}
+
+export type CreateRemoveMultipleVotersRequestAction = (
+    multiSelection: Record<number, boolean>
+) => RemoveMultipleVotersRequestAction;
+
+export const removeMultipleVoters = (multiSelection: Record<number, boolean>) => {
+    return (dispatch: Dispatch) => {
+        dispatch(createRemoveMultipleVotersRequestAction(multiSelection));
+        return Promise.all(
+            Object.entries(multiSelection)
+                .filter(selection=>selection[1])
+                .map(selection=> {
+                    return fetch("http://localhost:3060/voters/" + encodeURIComponent(selection[0]), {method: "DELETE"});
+                })
+        ).then(() => {
+            refreshVoters()(dispatch);
+        });
+    };
+};
+
+export const createRemoveMultipleVotersRequestAction: CreateRemoveMultipleVotersRequestAction = (
+    multiSelection
+) => {
+    return {
+        type: REMOVE_MULTI_VOTERS_REQUEST_ACTION,
+        payload: {
+            multiSelection,
+        },
     };
 };
 
@@ -320,16 +365,15 @@ export const getVoter = (voterId: number) => {
     };
 }
 
-//todo multi delete
-
 export type VoterActions =
     RefreshVotersRequestAction |
     RefreshVotersDoneAction |
     AppendVoterRequestAction |
     RemoveVoterRequestAction |
+    RemoveMultipleVotersRequestAction |
     ReplaceVoterRequestAction |
     EditVoterAction |
     CancelVoterAction |
-    SortVotersAction | 
+    SortVotersAction |
     SetSelectedVoterAction |
     GetVoterDoneAction
