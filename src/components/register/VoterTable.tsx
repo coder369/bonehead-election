@@ -14,7 +14,7 @@ export type VoterTableProps = {
     votersSort: VotersSort;
     onEditVoter: (voterId: number) => void;
     onDeleteVoter: (voterId: number) => void;
-    onDeleteMultiVoters: (multiSelection: Record<number, boolean>) => void;
+    onDeleteMultiVoters: (multiSelection: number[]) => void;
     onSaveVoter: (voter: Voter) => void;
     onCancelVoter: () => void;
     onSortVoters: (voter: keyof Voter) => void;
@@ -31,39 +31,32 @@ const sortArrow = (votersSort: VotersSort, sortCol: keyof Voter) => {
 };
 
 export function VoterTable(props: VoterTableProps) {
-    let multiSelection = (voters: Voter[], value=false) => {
-        let selection: Record<number, boolean> = {}
-        voters.forEach(v=> {
-            selection[v.id] = value
-        })
-        return selection;
-    }
+    let initialSelectedId: number[] = []
 
-    const [multiSelectedVoters, setMultiSelectedVoters] = useState(multiSelection(props.voters));
+    const [multiSelectedVoters, setMultiSelectedVoters] = useState([...initialSelectedId]);
 
     const change = (event: ChangeEvent<HTMLInputElement>)=> {
-        setMultiSelectedVoters({
-            ...multiSelectedVoters,
-            [Number(event.target.id)]: event.target.checked
-        })
+        let targetId: number  = Number(event.target.id)
+        if (event.target.checked && !multiSelectedVoters.includes(targetId)) {
+            setMultiSelectedVoters([
+                ...multiSelectedVoters, targetId
+            ])
+        } else if (!event.target.checked) {
+            setMultiSelectedVoters(multiSelectedVoters.filter(i=>i!==targetId))
+        }
     }
 
     const toggleAllVoter = ()=> {
-        if (Object.keys(multiSelectedVoters).length < props.voters.length ||
-            (Object.values(multiSelectedVoters).includes(false))) {
-            setMultiSelectedVoters(multiSelection(props.voters, true))
+        if (multiSelectedVoters.length < props.voters.length) {
+            setMultiSelectedVoters(props.voters.map(v=>v.id))
         } else {
-            setMultiSelectedVoters(multiSelection(props.voters, false))
+            setMultiSelectedVoters(initialSelectedId)
         }
     }
 
     const onClickMultiDelete = () => {
-        let currentSelection = multiSelectedVoters;
-        Object.keys(currentSelection)
-            .filter(i => !props.voters.map(v=>v.id).includes(Number(i)))
-            .forEach(i=>delete currentSelection[Number(i)])
-
-        props.onDeleteMultiVoters(currentSelection);
+        props.onDeleteMultiVoters(multiSelectedVoters);
+        setMultiSelectedVoters(initialSelectedId)
     }
 
 
@@ -152,7 +145,7 @@ export function VoterTable(props: VoterTableProps) {
                                     id={voter.id.toString()}
                                     name={voter.id.toString()+"-select-box"}
                                     type="checkbox"
-                                    checked={multiSelectedVoters[voter.id] || false}
+                                    checked={multiSelectedVoters.includes(voter.id)}
                                     onChange={change} />
                             </td>
                         </tr>

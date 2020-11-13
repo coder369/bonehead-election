@@ -18,7 +18,7 @@ export const GET_VOTER_DONE_ACTION = 'GET_VOTER_DONE_ACTION';
 
 export interface SetSelectedVoterAction extends Action<typeof SET_SELECTED_VOTER_ACTION> {
     payload: {
-        voterId: number,
+        voter: Voter,
     }
 }
 
@@ -26,13 +26,13 @@ export function isSetSelectedVoterAction(action: AnyAction): action is SetSelect
     return action.type === SET_SELECTED_VOTER_ACTION;
 }
 
-export type CreateSetSelectedVoterAction = (voterId: number) => SetSelectedVoterAction;
+export type CreateSetSelectedVoterAction = (voter: Voter) => SetSelectedVoterAction;
 
-export const createSetSelectedVoterAction: CreateSetSelectedVoterAction = (voterId) => {
+export const createSetSelectedVoterAction: CreateSetSelectedVoterAction = (voter) => {
     return {
         type: SET_SELECTED_VOTER_ACTION,
         payload: {
-            voterId,
+            voter,
         },
     }
 }
@@ -169,7 +169,7 @@ export const removeVoter = (voterId: number) => {
 export interface RemoveMultipleVotersRequestAction
     extends Action<typeof REMOVE_MULTI_VOTERS_REQUEST_ACTION> {
     payload: {
-        multiSelection: Record<number, boolean>;
+        multiSelection: number[];
     };
 }
 
@@ -180,17 +180,16 @@ export function isRemoveMultipleVotersRequestAction(
 }
 
 export type CreateRemoveMultipleVotersRequestAction = (
-    multiSelection: Record<number, boolean>
+    multiSelection: number[]
 ) => RemoveMultipleVotersRequestAction;
 
-export const removeMultipleVoters = (multiSelection: Record<number, boolean>) => {
+export const removeMultipleVoters = (multiSelection: number[]) => {
     return (dispatch: Dispatch) => {
         dispatch(createRemoveMultipleVotersRequestAction(multiSelection));
         return Promise.all(
-            Object.entries(multiSelection)
-                .filter(selection=>selection[1])
+            multiSelection
                 .map(selection=> {
-                    return fetch("http://localhost:3060/voters/" + encodeURIComponent(selection[0]), {method: "DELETE"});
+                    return fetch("http://localhost:3060/voters/" + encodeURIComponent(selection), {method: "DELETE"});
                 })
         ).then(() => {
             refreshVoters()(dispatch);
@@ -376,4 +375,5 @@ export type VoterActions =
     CancelVoterAction |
     SortVotersAction |
     SetSelectedVoterAction |
-    GetVoterDoneAction
+    GetVoterDoneAction |
+    SetSelectedVoterAction

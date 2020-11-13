@@ -12,7 +12,7 @@ export const electionsReducer: Reducer<Election[], ElectionActions> = (elections
     }
 }
 
-export const selectedElectionReducer: Reducer<Election, ElectionActions> = (election = {} as Election, action) => {
+export const electionReducer: Reducer<Election, ElectionActions> = (election = {} as Election, action) => {
     switch (action.type) {
         case SET_SELECTED_ELECTION_ACTION:
             return action.payload.election
