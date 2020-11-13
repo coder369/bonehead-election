@@ -1,5 +1,5 @@
 import { Reducer } from "react";
-import { ElectionActions, REFRESH_ELECTIONS_DONE_ACTION, SET_SELECTED_ELECTION_ACTION } from "../actions/electionActions";
+import { ADD_QUESTION_ACTION, ElectionActions, REFRESH_ELECTIONS_DONE_ACTION, SET_SELECTED_ELECTION_ACTION } from "../actions/electionActions";
 import { Election } from "../models/Election";
 
 export const electionsReducer: Reducer<Election[], ElectionActions> = (elections = [], action) => {
@@ -19,5 +19,15 @@ export const selectedElectionReducer: Reducer<Election, ElectionActions> = (elec
 
         default:
             return election;
+    }
+}
+
+export const questionsReducer: Reducer<string[], ElectionActions> = (questions = [], action) => {
+    switch (action.type) {
+        case ADD_QUESTION_ACTION:
+            return [...questions, action.payload.question]
+        
+        default:
+            return questions;
     }
 }
