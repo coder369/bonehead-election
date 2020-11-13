@@ -8,6 +8,7 @@ import {
     createSortVotersAction,
     refreshVoters,
     removeVoter,
+    removeMultipleVoters,
     replaceVoter
 } from "../../actions/voterActions";
 import {VoterTable} from "./VoterTable";
@@ -51,6 +52,7 @@ export function VoterTableContainer() {
                 {
                     onSaveVoter: replaceVoter,
                     onDeleteVoter: removeVoter,
+                    onDeleteMultiVoters: removeMultipleVoters,
                     onEditVoter: createEditVoterAction,
                     onCancelVoter: createCancelVoterAction,
                     onSortVoters: createSortVotersAction,

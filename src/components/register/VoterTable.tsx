@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import {Voter} from "../../models/Voter";
 import {VotersSort} from "../../models/AppStore";
 import upArrow from "../../012-up-arrow.svg";
@@ -14,6 +14,7 @@ export type VoterTableProps = {
     votersSort: VotersSort;
     onEditVoter: (voterId: number) => void;
     onDeleteVoter: (voterId: number) => void;
+    onDeleteMultiVoters: (multiSelection: Record<number, boolean>) => void;
     onSaveVoter: (voter: Voter) => void;
     onCancelVoter: () => void;
     onSortVoters: (voter: keyof Voter) => void;
@@ -30,6 +31,38 @@ const sortArrow = (votersSort: VotersSort, sortCol: keyof Voter) => {
 };
 
 export function VoterTable(props: VoterTableProps) {
+    let multiSelection = (voters: Voter[], value=false) => {
+        let selection: Record<number, boolean> = {}
+        voters.forEach(v=> {
+            selection[v.id] = value
+        })
+        return selection;
+    }
+
+    const [multiSelectedVoters, setMultiSelectedVoters] = useState(multiSelection(props.voters));
+
+    const change = (event: ChangeEvent<HTMLInputElement>)=> {
+        setMultiSelectedVoters({
+            ...multiSelectedVoters,
+            [Number(event.target.id)]: event.target.checked
+        })
+    }
+
+    const toggleAllVoter = ()=> {
+        if (Object.keys(multiSelectedVoters).length < props.voters.length || (Object.values(multiSelectedVoters).includes(false))) {
+            let newSelection = multiSelection(props.voters, true)
+            setMultiSelectedVoters(newSelection)
+        } else {
+            setMultiSelectedVoters(multiSelection(props.voters, false))
+        }
+    }
+
+    const onClickMultiDelete = () => {
+        console.log(multiSelectedVoters);
+        props.onDeleteMultiVoters(multiSelectedVoters);
+    }
+
+
     return (
         <>
             <table id="voter-table">
@@ -86,28 +119,46 @@ export function VoterTable(props: VoterTableProps) {
                         </button>
                     </th>
                     <th className="col-header">Actions</th>
+                    <th>Multi-Select</th>
                 </tr>
                 </thead>
                 <tbody>
-                {props.voters.map((voter) =>
-                    voter.id === props.editVoterId ? (
-                        <VoterEditRow
-                            key={voter.id}
-                            voter={voter}
-                            onSaveVoter={props.onSaveVoter}
-                            onCancelVoter={props.onCancelVoter}
-                        />
-                    ) : (
-                        <VoterViewRow
-                            key={voter.id}
-                            voter={voter}
-                            onEditVoter={props.onEditVoter}
-                            onDeleteVoter={props.onDeleteVoter}
-                        />
+                {props.voters.map((voter) => (
+                        <tr key={voter.id}>
+                            {
+                                voter.id === props.editVoterId ? (
+                                    <VoterEditRow
+                                        key={voter.id}
+                                        voter={voter}
+                                        onSaveVoter={props.onSaveVoter}
+                                        onCancelVoter={props.onCancelVoter}
+                                    />
+                                ) : (
+                                    <VoterViewRow
+                                        key={voter.id}
+                                        voter={voter}
+                                        onEditVoter={props.onEditVoter}
+                                        onDeleteVoter={props.onDeleteVoter}
+                                    />
+                                )
+                            }
+                            <td>
+                                <input
+                                    key={voter.id}
+                                    id={voter.id.toString()}
+                                    name={voter.id.toString()+"-select-box"}
+                                    type="checkbox"
+                                    checked={multiSelectedVoters[voter.id] || false}
+                                    onChange={change} />
+                            </td>
+                        </tr>
                     )
                 )}
                 </tbody>
             </table>
+            <button type={"button"} onClick={toggleAllVoter}> Check/ Uncheck all </button>
+            <button type={"button"} onClick={onClickMultiDelete}> Delete Selected Voter(s) </button>
+
             <br/>
             <div>
                 Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
@@ -117,5 +168,5 @@ export function VoterTable(props: VoterTableProps) {
 
 
 
-);
+    );
 }

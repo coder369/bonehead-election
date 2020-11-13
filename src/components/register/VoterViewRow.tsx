@@ -13,7 +13,7 @@ export function VoterViewRow(props: VoterViewRowProps) {
     };
 
     return (
-        <tr>
+        <>
             <td className="col-body">{props.voter.id}</td>
             <td className="col-body">{props.voter.firstName}</td>
             <td className="col-body">{props.voter.lastName}</td>
@@ -32,6 +32,6 @@ export function VoterViewRow(props: VoterViewRowProps) {
                     Delete
                 </button>
             </td>
-        </tr>
+        </>
     )
 }
