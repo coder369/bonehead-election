@@ -49,17 +49,21 @@ export function VoterTable(props: VoterTableProps) {
     }
 
     const toggleAllVoter = ()=> {
-        if (Object.keys(multiSelectedVoters).length < props.voters.length || (Object.values(multiSelectedVoters).includes(false))) {
-            let newSelection = multiSelection(props.voters, true)
-            setMultiSelectedVoters(newSelection)
+        if (Object.keys(multiSelectedVoters).length < props.voters.length ||
+            (Object.values(multiSelectedVoters).includes(false))) {
+            setMultiSelectedVoters(multiSelection(props.voters, true))
         } else {
             setMultiSelectedVoters(multiSelection(props.voters, false))
         }
     }
 
     const onClickMultiDelete = () => {
-        console.log(multiSelectedVoters);
-        props.onDeleteMultiVoters(multiSelectedVoters);
+        let currentSelection = multiSelectedVoters;
+        Object.keys(currentSelection)
+            .filter(i => !props.voters.map(v=>v.id).includes(Number(i)))
+            .forEach(i=>delete currentSelection[Number(i)])
+
+        props.onDeleteMultiVoters(currentSelection);
     }
 
 

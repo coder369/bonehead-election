@@ -190,7 +190,6 @@ export const removeMultipleVoters = (multiSelection: Record<number, boolean>) =>
             Object.entries(multiSelection)
                 .filter(selection=>selection[1])
                 .map(selection=> {
-                    console.log("http://localhost:3060/voters/" + encodeURIComponent(selection[0]));
                     return fetch("http://localhost:3060/voters/" + encodeURIComponent(selection[0]), {method: "DELETE"});
                 })
         ).then(() => {
@@ -365,8 +364,6 @@ export const getVoter = (voterId: number) => {
             .then((voters) => dispatch(createGetVoterDoneAction(voters)))
     };
 }
-
-//todo multi delete
 
 export type VoterActions =
     RefreshVotersRequestAction |
