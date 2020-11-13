@@ -1,5 +1,5 @@
 import { Reducer } from "react";
-import { ADD_QUESTION_ACTION, ElectionActions, REFRESH_ELECTIONS_DONE_ACTION, SET_SELECTED_ELECTION_ACTION } from "../actions/electionActions";
+import { ADD_QUESTION_ACTION, REFRESH_QUESTIONS_REQUEST_ACTION, ElectionActions, REFRESH_ELECTIONS_DONE_ACTION, SET_SELECTED_ELECTION_ACTION } from "../actions/electionActions";
 import { Election } from "../models/Election";
 
 export const electionsReducer: Reducer<Election[], ElectionActions> = (elections = [], action) => {
@@ -27,6 +27,9 @@ export const questionsReducer: Reducer<string[], ElectionActions> = (questions =
         case ADD_QUESTION_ACTION:
             return [...questions, action.payload.question]
         
+        case REFRESH_QUESTIONS_REQUEST_ACTION:
+            return []
+
         default:
             return questions;
     }
