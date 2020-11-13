@@ -1,7 +1,7 @@
 {
   "voters": [
     {
-      "id": 1,
+      "id": 0,
       "firstName": "Ben",
       "lastName": "Moore",
       "address": "4740 Mount Saint Helens Drive",
@@ -13,7 +13,7 @@
       "phone": "858-900-7200"
     },
     {
-      "id": 2,
+      "id": 1,
       "firstName": "Yao",
       "lastName": "Wang",
       "address": "1234 S. 42nd St",
@@ -25,7 +25,7 @@
       "phone": "555-555-5555"
     },
     {
-      "id": 3,
+      "id": 2,
       "firstName": "John",
       "lastName": "Doe",
       "address": "1234 Dead St.",
@@ -39,18 +39,24 @@
   ],
   "elections": [
     {
-      "id": 1,
+      "id": 0,
       "name": "Animal Poll",
       "questions": [
         {
-          "id": 1,
+          "id": 0,
           "question": "Do you like Dogs?",
           "yesCount": 0,
           "noCount": 0
         },
         {
-          "id": 2,
+          "id": 1,
           "question": "Do you like Cats?",
+          "yesCount": 0,
+          "noCount": 0
+        },
+        {
+          "id": 2,
+          "question": "What about kinkajous?",
           "yesCount": 0,
           "noCount": 0
         }

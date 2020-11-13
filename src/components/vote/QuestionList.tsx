@@ -21,9 +21,9 @@ export function QuestionList({ election, voter, onSubmitBallot }: QuestionListPr
         // Please go easy on me Eric
         for (let i = 0, len = ballot.length; i < len; i++) {
             if (ballot[i])
-                questions[i].yesCount++
+                questions[i].yesCount++;
             else
-                questions[i].noCount++
+                questions[i].noCount++;
         }
 
         voterIds.push(voter.id);
@@ -45,7 +45,7 @@ export function QuestionList({ election, voter, onSubmitBallot }: QuestionListPr
             <ul>{election.questions.map((q) => (
                 <li key={q.id}>
                     <label htmlFor={"" + q.id}>{q.question}</label>
-                    <input type="checkbox" id={"" + q.id} name={"" + q.id} checked={ballot[q.id - 1]} onChange={change} />
+                    <input type="checkbox" id={"" + q.id} name={"" + q.id} checked={ballot[q.id]} onChange={change} />
                 </li>))}</ul>
 
             <button type="button" onClick={submitBallot}>
