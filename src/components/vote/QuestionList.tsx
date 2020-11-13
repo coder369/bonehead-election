@@ -11,9 +11,9 @@ export type QuestionListProps = {
 };
 
 export function QuestionList({ election, voter, onSubmitBallot }: QuestionListProps) {
-    const [ballot, change] = useBallotForm([])
+    const [ballot, change] = useBallotForm(Array(election.questions.length).fill(false))
     const history = useHistory();
-    
+
     const submitBallot = () => {
         const questions = [...election.questions];
         const voterIds = [...election.voterIds];
@@ -36,6 +36,7 @@ export function QuestionList({ election, voter, onSubmitBallot }: QuestionListPr
         };
 
         onSubmitBallot(newElection);
+
         history.push("/");
     }
 

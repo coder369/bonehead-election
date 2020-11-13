@@ -25,8 +25,10 @@ export function CaptureVotes({ elections, voters, selectedElection, selectedVote
         onRefreshVoters();
     }, [onRefreshElections, onRefreshVoters]);
 
-    console.log("Voter: " + JSON.stringify(selectedVoter));
-    console.log("Election: " + JSON.stringify(selectedElection));
+    const submitBallot = (election: Election) => {
+        onSelectVoter(-1);
+        onSubmitBallot(election);
+    }
 
     return (
         <>
@@ -34,7 +36,7 @@ export function CaptureVotes({ elections, voters, selectedElection, selectedVote
                 ? <ElectionList elections={elections} onSelectElection={onSelectElection} />
                 : (selectedElection.id !== undefined && selectedVoter.id === undefined)
                     ? <VoterLogin voters={voters} selectedElection={selectedElection} onSelectVoter={onSelectVoter} errorMessage={errorMessage} />
-                    : <Ballot election={selectedElection} voter={selectedVoter} onSubmitBallot={onSubmitBallot} />}
+                    : <Ballot election={selectedElection} voter={selectedVoter} onSubmitBallot={submitBallot} />}
         </>
     );
 }
